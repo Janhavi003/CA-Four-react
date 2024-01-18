@@ -10,7 +10,8 @@ function App() {
 
   return (
     <div>
-      
+      <QuestionBox/>
+      <Result/>
     </div>
   );
 }
