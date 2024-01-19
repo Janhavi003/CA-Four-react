@@ -1,7 +1,7 @@
 body{
     margin:0;
     padding:0;
-    background-image: url("https://media-s3-us-east-1.ceros.com/travelers/images/2023/06/13/1d47b428442363a9724a1d7a588519b8/bg-dark.jpg") ;
+    background-image: url("https://media-s3-us-east-1.ceros.com/travelers/images/2023/06/13/6bc5d2a8742aa0855424f546d7c78e04/bg-light-quiz-page.jpg") ;
 }
 #theme{
     margin-left: 90vw;
@@ -16,7 +16,7 @@ body{
 }
 .results{
     background: url("https://media-s3-us-east-1.ceros.com/travelers/images/2023/06/13/6bc5d2a8742aa0855424f546d7c78e04/bg-light-quiz-page.jpg");
-    background-color: rgba(26, 25, 25, 0.763);
+    background-color: rgba(26, 25, 25, 0.364);
     background-blend-mode: overlay;
     width:55vw;
     height:27vw;
@@ -48,3 +48,17 @@ body{
     background-color: rgba(255, 2, 2, 0.882);
     cursor: pointer;
 }
+.results.dark-theme{
+    background-image: url("https://media-s3-us-east-1.ceros.com/travelers/images/2023/06/13/6bc5d2a8742aa0855424f546d7c78e04/bg-light-quiz-page.jpg");
+    background-color: rgba(0, 0, 0, 0.905);
+    background-blend-mode: overlay;
+    width:55vw;
+    height:27vw;
+    margin-left:21vw;
+    margin-top:5vw;
+    margin-bottom:5vw;
+    border-radius: 1.5vw;
+    text-align: center;
+    box-shadow: 3px 3px 3px rgba(254, 254, 254, 0.922);
+}
+

@@ -1,58 +1,82 @@
-body{
-    margin:0;
-    padding:0;
-    background-image: url("https://media-s3-us-east-1.ceros.com/travelers/images/2023/06/13/1d47b428442363a9724a1d7a588519b8/bg-dark.jpg") ;
-}
-#theme{
-    margin-left: 90vw;
-    margin-top:2vw;
-    width:7vw;
-    height:3vw;
-    border-radius:1vw;
-    font-size:1.5vw;
-    font-weight: 550;
-    border-style:none;
-    cursor: pointer;
-}
-.quiz{
+body {
+    margin: 0;
+    padding: 0;
     background: url("https://media-s3-us-east-1.ceros.com/travelers/images/2023/06/13/6bc5d2a8742aa0855424f546d7c78e04/bg-light-quiz-page.jpg");
-    background-color: rgba(0, 0, 0, 0.714);
+}
+
+ .quiz {
+    background-image: url("https://media-s3-us-east-1.ceros.com/travelers/images/2023/06/13/1d47b428442363a9724a1d7a588519b8/bg-dark.jpg");
+    background-color: rgba(213, 213, 213, 0.611);
     background-blend-mode: overlay;
-    width:75vw;
-    height:40vw;
-    margin-left:13vw;
+    width: 75vw;
+    height: 40vw;
+    margin-left: 13vw;
     border-radius: 1.5vw;
-    box-shadow: 3px 3px 5px rgba(255, 255, 255, 0.799);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.922);
     text-align: center;
 }
-#questionNo{
-    padding-top:2vw;
-    font-size:2vw;
-    color:white;
+
+#theme {
+    margin-left: 90vw;
+    margin-top: 2vw;
+    width: 7vw;
+    height: 3vw;
+    border-radius: 1vw;
+    font-size: 1.5vw;
+    font-weight: 550;
+    border-style: none;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+#questionNo {
+    padding-top: 2vw;
+    font-size: 35px;
     font-weight: 400;
 }
-#Question{
-    font-size:3.3vw;
-    color:white;
-    font-weight: 500; 
+
+#Question {
+    padding-bottom: 2vw;
+    font-size: 45px;
 }
-#option1,#option2,#option3,#option4{
-    width:70vw;
-    height:3vw;
-    margin-bottom:1.5vw;
-    border-radius:2vw;
-    border-style:none;
-    font-size:1.2vw; 
+
+#option1, #option2, #option3, #option4 {
+    width: 70vw;
+    height: 3vw;
+    margin-bottom: 1.5vw;
+    border-radius: 2vw;
+    border-style: none;
+    font-size: 1.2vw;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+#highlight,
+#noHighlight {
+    background-color: rgba(255, 255, 255, 0.496);
+    margin: 2vw;
+    width: 9vw;
+    height: 2vw;
+    font-size: 13px;
+    border-radius: 2vw;
+    border-style: none;
     cursor: pointer;
 }
-#highlight, #noHighlight{
- background-color: rgba(0, 0, 0, 0.43);
- margin:2vw;
- width:9vw;
- height:2vw;
- font-size:13px;
- color:white;
- border-radius:2vw;
- border-style:none;
- cursor:pointer;
+
+body .quiz.dark-theme {
+    background-image: url("https://media-s3-us-east-1.ceros.com/travelers/images/2023/06/13/6bc5d2a8742aa0855424f546d7c78e04/bg-light-quiz-page.jpg");
+    background-color: rgba(0, 0, 0, 0.682);
+    background-blend-mode: overlay;
+    width: 75vw;
+    height: 40vw;
+    margin-left: 13vw;
+    border-radius: 1.5vw;
+    text-align: center;
+    box-shadow: 3px 3px 3px rgba(254, 254, 254, 0.922);
+}
+
+ #Question.highlighted {
+    color: red;
 }
