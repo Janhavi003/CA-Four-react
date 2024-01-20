@@ -1,7 +1,7 @@
 // QuestionBox.jsx
 import React, { useState } from 'react';
 import "./questionbox.css";
-import questions from "./questions";
+import {questions} from "./questions";
 
 export default function QuestionBox({ questionNo, totalQuestions, handleOptionClick }) {
   const [isDarkTheme, setIsDarkTheme] = useState(false);

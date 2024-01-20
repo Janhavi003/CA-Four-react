@@ -1,8 +1,8 @@
 // App.jsx
 import React, { useState } from 'react';
-import QuestionBox from './QuestionBox';
-import Result from './Result';
-import { questions } from './questions'; // Import the questions array
+import QuestionBox from './components/QuestionBox'; // Update the path if necessary
+import Result from './components/Result'; // Update the path if necessary
+import { questions } from './questions';
 
 export default function App() {
   const [currentScore, setCurrentScore] = useState(0);
