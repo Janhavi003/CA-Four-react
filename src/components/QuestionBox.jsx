@@ -1,88 +1,64 @@
-// QuestionBox.jsx
-import React, { useState } from 'react';
+// questionbox.jsx
+import React, { useState } from "react";
+import question from "../questions";
+import Result from "./Result";
 import "./questionbox.css";
-import { questions } from "./questions";
 
-export default function QuestionBox({ questionNo, totalQuestions, handleOptionClick, setCurrentScore, setCurrentQuestionNo }) {
-  // eslint-disable-next-line
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(questionNo - 1);
-  const [highlightedOption, setHighlightedOption] = useState(null);
-  const [isQuestionHighlighted, setIsQuestionHighlighted] = useState(false);
-  // eslint-disable-next-line
-  const [currentScore, setCurrentScoreLocal] = useState(0);
+export default function QuestionBox(props) {
+  const [highlight, setLight] = useState(false);
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const [score, setScore] = useState(0);
 
-  const toggleTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
+  const handleOption = (option) => {
+    const isCorrect = option.isCorrect;
+    setScore((prevScore) => (isCorrect ? prevScore + 1 : prevScore));
+    setQuestionNumber((prevNumber) => prevNumber + 1);
   };
 
-  const highlightOption = () => {
-    const currentQuestion = questions[currentQuestionIndex];
-    if (currentQuestion) {
-      const correctOptionIndex = currentQuestion.options.findIndex(option => option.isCorrect);
-      setHighlightedOption(correctOptionIndex);
-      setIsQuestionHighlighted(true);
-    }
+  const toggleHighlight = (shouldHighlight) => {
+    setLight(shouldHighlight);
   };
 
-  const removeHighlight = () => {
-    setHighlightedOption(null);
-    setIsQuestionHighlighted(false);
-  };
-
-  const updateCurrentQuestion = () => {
-    const currentQuestion = questions[currentQuestionIndex];
-    if (currentQuestion) {
-      const newQuestionNo = questionNo + 1;
-      setCurrentQuestionIndex(newQuestionNo - 1);
-      setHighlightedOption(null);
-      setIsQuestionHighlighted(false);
-
-      if (newQuestionNo > totalQuestions) {
-        console.log('Game Over! Total Score:', currentScore);
-      }
-    }
-  };
-
-  const handleOptionSelection = (isCorrect) => {
-    if (isCorrect) {
-      setCurrentScoreLocal(prevScore => prevScore + 1);
-    }
-  };
-
-  const handleOptionClickWrapper = (isCorrect) => {
-    handleOptionClick(isCorrect);
-    handleOptionSelection(isCorrect);
-    updateCurrentQuestion();
-  };
-
-  const currentQuestion = questions[currentQuestionIndex];
+  const currentQuestion = question[questionNumber];
 
   return (
     <>
-      <button id="theme" onClick={toggleTheme}>{isDarkTheme ? 'Light' : 'Dark'}</button>
-      <div className={`quiz ${isDarkTheme ? 'dark-theme' : ''}`}>
-        <h2 id='questionNo'>Question {questionNo} out of {totalQuestions}</h2>
-        <h1
-          id='Question'
-          className={isQuestionHighlighted ? 'highlighted' : ''}
-        >
-          {currentQuestion ? currentQuestion.question : 'No question available'}
-        </h1>
-        {currentQuestion?.options.map((option, index) => (
-          <button
-            key={index}
-            id={`option${index + 1}`}
-            onClick={() => handleOptionClickWrapper(option.isCorrect)}
-            className={highlightedOption === index ? 'highlighted' : ''}
-            disabled={highlightedOption !== null}
-          >
-            {option.text}
-          </button>
-        ))}
-        <button id="highlight" onClick={highlightOption}>Highlight</button>
-        <button id="noHighlight" onClick={removeHighlight}>Remove Highlight</button>
-      </div>
+      {questionNumber < 5 ? (
+        <div className='question-box'>
+          <h2 id="questionNo">Question: {questionNumber + 1} out of 5</h2>
+          <h3 id="Question" style={{ color: highlight ? "red" : "black" }}>
+            {currentQuestion.text}
+          </h3>
+          <div className='options-box'>
+            {currentQuestion.options.map((option) => (
+              <button
+                key={option.id}
+                className='option'
+                onClick={() => handleOption(option)}
+                disabled={highlight}
+              >
+                {option.text}
+              </button>
+            ))}
+          </div>
+          <div>
+            <button
+              className='highlight-btn'
+              onClick={() => toggleHighlight(true)}
+            >
+              Highlight
+            </button>
+            <button
+              className='highlight-btn'
+              onClick={() => toggleHighlight(false)}
+            >
+              Remove Highlight
+            </button>
+          </div>
+        </div>
+      ) : (
+        <Result props={[score, props.props]} />
+      )}
     </>
   );
 }

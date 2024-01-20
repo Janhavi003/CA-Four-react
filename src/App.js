@@ -1,41 +1,38 @@
-// App.jsx
-import React, { useState } from 'react';
-import QuestionBox from './components/QuestionBox';
-import Result from './components/Result';
-import { questions } from './questions'; // Update the import statement
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import QuestionBox from "./components/QuestionBox";
+import Result from "./components/Result";
+import questions from "./questions";
 
-export default function App() {
-  const [currentScore, setCurrentScore] = useState(0);
-  const [currentQuestionNo, setCurrentQuestionNo] = useState(1);
+function App() {
+  const [isDarkTheme, setDarkTheme] = useState(false);
+  const themeName = isDarkTheme ? "Dark" : "Light";
 
-  const handleOptionClick = (isCorrect) => {
-    if (isCorrect) {
-      setCurrentScore((prevScore) => prevScore + 1);
-    }
+  const background = {
+    background: isDarkTheme ? "black" : "white",
+    color: isDarkTheme ? "white" : "black",
+    width: "100vw",
+    height: "100vh",
   };
 
-  const restartGame = () => {
-    setCurrentScore(0);
-    setCurrentQuestionNo(1);
-  };
+  useEffect(() => {
+    // Additional logic can be added if needed when theme changes
+  }, [isDarkTheme]);
 
-  const handleResult = () => {
-    console.log('Final Score:', currentScore);
+  const handleThemeToggle = () => {
+    setDarkTheme(!isDarkTheme);
   };
 
   return (
-    <div>
-      {currentQuestionNo <= questions.length ? (
-        <QuestionBox
-          questionNo={currentQuestionNo}
-          totalQuestions={questions.length}
-          handleOptionClick={handleOptionClick}
-          setCurrentScore={setCurrentScore}
-          setCurrentQuestionNo={setCurrentQuestionNo}
-        />
-      ) : (
-        <Result currentScore={currentScore} restartGame={restartGame} handleResult={handleResult} />
-      )}
+    <div style={background} className="container">
+      <div className="header">
+        <button onClick={handleThemeToggle} className="themeBtn">
+          {themeName}
+        </button>
+      </div>
+      <QuestionBox props={isDarkTheme} />
     </div>
   );
 }
+
+export default App;
