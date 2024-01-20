@@ -1,7 +1,4 @@
 .results {
-    background: url("https://media-s3-us-east-1.ceros.com/travelers/images/2023/06/13/6bc5d2a8742aa0855424f546d7c78e04/bg-light-quiz-page.jpg");
-    background-color: rgba(26, 25, 25, 0.364);
-    background-blend-mode: overlay;
     width: 55vw;
     height: 27vw;
     margin-left: 21vw;
@@ -11,19 +8,16 @@
     box-shadow: 3px 3px 5px rgba(255, 255, 255, 0.799);
     text-align: center;
 }
-
 #finalResult {
     padding-top: 4vw;
     font-size: 3.5vw;
     color: rgb(114, 114, 114);
 }
-
 #noofquestion {
     font-size: 2.7vw;
     color: rgb(89, 89, 89);
     font-weight: 500;
 }
-
 #restart-btn {
     margin-top: 2vw;
     width: 9vw;
@@ -33,4 +27,18 @@
     border-style: none;
     background-color: rgba(255, 2, 2, 0.882);
     cursor: pointer;
+}
+.themeBtn {
+    margin-left: 90vw;
+    margin-top: 2vw;
+    width: 7vw;
+    height: 3vw;
+    border-radius: 1vw;
+    font-size: 1.5vw;
+    font-weight: 550;
+    border-style: none;
+    cursor: pointer;
+    background-color: rgba(42, 41, 41, 0.732);
+    color: white;
+    border:2px solid white;
 }

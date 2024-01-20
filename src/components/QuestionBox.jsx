@@ -5,35 +5,44 @@ import Result from "./Result";
 import "./questionbox.css";
 
 export default function QuestionBox(props) {
-  const [highlight, setLight] = useState(false);
+  // State variables
+  const [highlight, setHighlight] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(0);
   const [score, setScore] = useState(0);
 
+  // Handle user's option selection
   const handleOption = (option) => {
     const isCorrect = option.isCorrect;
     setScore((prevScore) => (isCorrect ? prevScore + 1 : prevScore));
     setQuestionNumber((prevNumber) => prevNumber + 1);
   };
 
+  // Toggle highlight for the current question
   const toggleHighlight = (shouldHighlight) => {
-    setLight(shouldHighlight);
+    setHighlight(shouldHighlight);
   };
 
+  // Get the current question from the question array
   const currentQuestion = question[questionNumber];
 
   return (
     <>
+      {/* Display questions until the user has answered 5 questions */}
       {questionNumber < 5 ? (
-        <div className='question-box'>
+        <div className="question-box">
           <h2 id="questionNo">Question: {questionNumber + 1} out of 5</h2>
-          <h3 id="Question" style={{ color: highlight ? "red" : "black" }}>
+          <h3
+            id="Question"
+            style={{ color: highlight ? "red" : "black" }}
+          >
             {currentQuestion.text}
           </h3>
-          <div className='options-box'>
+          <div className="options-box">
+            {/* Display options for the current question */}
             {currentQuestion.options.map((option) => (
               <button
                 key={option.id}
-                className='option'
+                className="option"
                 onClick={() => handleOption(option)}
                 disabled={highlight}
               >
@@ -42,14 +51,15 @@ export default function QuestionBox(props) {
             ))}
           </div>
           <div>
+            {/* Buttons to highlight and remove highlight */}
             <button
-              className='highlight-btn'
+              className="highlight-btn"
               onClick={() => toggleHighlight(true)}
             >
               Highlight
             </button>
             <button
-              className='highlight-btn'
+              className="highlight-btn"
               onClick={() => toggleHighlight(false)}
             >
               Remove Highlight
@@ -57,6 +67,7 @@ export default function QuestionBox(props) {
           </div>
         </div>
       ) : (
+        // Display result component once the user has answered all questions
         <Result props={[score, props.props]} />
       )}
     </>
