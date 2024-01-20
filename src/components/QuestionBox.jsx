@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from 'react';
+// QuestionBox.jsx
+import React, { useState } from 'react';
 import "./questionbox.css";
-import questions from "./questions"; // Update this import statement
+import questions from "./questions";
 
 export default function QuestionBox({ questionNo, totalQuestions, handleOptionClick }) {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(questionNo - 1);
   const [highlightedOption, setHighlightedOption] = useState(null);
   const [isQuestionHighlighted, setIsQuestionHighlighted] = useState(false);
+  const [currentScore, setCurrentScore] = useState(0);
 
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
   };
 
   const highlightOption = () => {
-    const correctOptionIndex = questions[currentQuestionIndex].options.findIndex(option => option.isCorrect);
-    setHighlightedOption(correctOptionIndex);
-    setIsQuestionHighlighted(true);
+    const currentQuestion = questions[currentQuestionIndex];
+    if (currentQuestion) {
+      const correctOptionIndex = currentQuestion.options.findIndex(option => option.isCorrect);
+      setHighlightedOption(correctOptionIndex);
+      setIsQuestionHighlighted(true);
+    }
   };
 
   const removeHighlight = () => {
@@ -23,11 +28,33 @@ export default function QuestionBox({ questionNo, totalQuestions, handleOptionCl
     setIsQuestionHighlighted(false);
   };
 
-  useEffect(() => {
-    setCurrentQuestionIndex(questionNo - 1);
-    setHighlightedOption(null);
-    setIsQuestionHighlighted(false);
-  }, [questionNo]);
+  const updateCurrentQuestion = () => {
+    const currentQuestion = questions[currentQuestionIndex];
+    if (currentQuestion) {
+      const newQuestionNo = questionNo + 1;
+      setCurrentQuestionIndex(newQuestionNo - 1);
+      setHighlightedOption(null);
+      setIsQuestionHighlighted(false);
+
+      if (newQuestionNo > totalQuestions) {
+        // Pass the current score to handleResult function if needed
+        // handleResult(currentScore);
+        console.log('Game Over! Total Score:', currentScore);
+      }
+    }
+  };
+
+  const handleOptionSelection = (isCorrect) => {
+    if (isCorrect) {
+      setCurrentScore(prevScore => prevScore + 1);
+    }
+  };
+
+  const handleOptionClickWrapper = (isCorrect) => {
+    handleOptionClick(isCorrect);
+    handleOptionSelection(isCorrect);
+    updateCurrentQuestion();
+  };
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -40,14 +67,15 @@ export default function QuestionBox({ questionNo, totalQuestions, handleOptionCl
           id='Question'
           className={isQuestionHighlighted ? 'highlighted' : ''}
         >
-          {currentQuestion?.question}
+          {currentQuestion ? currentQuestion.question : 'No question available'}
         </h1>
         {currentQuestion?.options.map((option, index) => (
           <button
             key={index}
             id={`option${index + 1}`}
-            onClick={() => handleOptionClick(option.isCorrect)}
+            onClick={() => handleOptionClickWrapper(option.isCorrect)}
             className={highlightedOption === index ? 'highlighted' : ''}
+            disabled={highlightedOption !== null}
           >
             {option.text}
           </button>

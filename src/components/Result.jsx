@@ -1,7 +1,8 @@
+// Result.jsx
 import React, { useState } from 'react';
 import "./result.css";
 
-export default function Result({ currentScore, restartGame, handleOptionClick }) {
+export default function Result({ currentScore, restartGame }) {
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const toggleTheme = () => {
@@ -19,4 +20,3 @@ export default function Result({ currentScore, restartGame, handleOptionClick })
     </>
   );
 }
-

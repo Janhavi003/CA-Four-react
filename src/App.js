@@ -1,48 +1,40 @@
-// App.js
-import React, { useEffect, useState } from "react";
-import "./App.css";
-import questions from "./questions";
-import Result from "./components/Result";
-import QuestionBox from "./components/QuestionBox";
+// App.jsx
+import React, { useState } from 'react';
+import QuestionBox from './QuestionBox';
+import Result from './Result';
+import { questions } from './questions'; // Import the questions array
 
-function App() {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+export default function App() {
   const [currentScore, setCurrentScore] = useState(0);
-  const [showResult, setShowResult] = useState(false);
-
-  useEffect(() => {
-    if (currentQuestion === questions.length) {
-      setShowResult(true);
-    }
-  }, [currentQuestion]);
+  const [currentQuestionNo, setCurrentQuestionNo] = useState(1);
 
   const handleOptionClick = (isCorrect) => {
     if (isCorrect) {
-      setCurrentScore(currentScore + 1);
+      setCurrentScore((prevScore) => prevScore + 1);
     }
-
-    setCurrentQuestion(currentQuestion + 1);
   };
 
   const restartGame = () => {
-    setCurrentQuestion(0);
     setCurrentScore(0);
-    setShowResult(false);
+    setCurrentQuestionNo(1);
+  };
+
+  const handleResult = () => {
+    // Handle the result logic (e.g., redirect, show modal, etc.)
+    console.log('Final Score:', currentScore);
   };
 
   return (
-    <div className="app">
-      {showResult ? (
-        <Result currentScore={currentScore} restartGame={restartGame} />
-      ) : (
+    <div>
+      {currentQuestionNo <= questions.length ? (
         <QuestionBox
-          questionNo={currentQuestion + 1}
+          questionNo={currentQuestionNo}
           totalQuestions={questions.length}
           handleOptionClick={handleOptionClick}
         />
+      ) : (
+        <Result currentScore={currentScore} restartGame={restartGame} handleResult={handleResult} />
       )}
     </div>
   );
 }
-
-export default App;
