@@ -1,8 +1,8 @@
 // App.jsx
 import React, { useState } from 'react';
-import QuestionBox from './components/QuestionBox'; // Update the path if necessary
-import Result from './components/Result'; // Update the path if necessary
-import { questions } from './questions';
+import QuestionBox from './components/QuestionBox';
+import Result from './components/Result';
+import { questions } from './questions'; // Update the import statement
 
 export default function App() {
   const [currentScore, setCurrentScore] = useState(0);
@@ -20,7 +20,6 @@ export default function App() {
   };
 
   const handleResult = () => {
-    // Handle the result logic (e.g., redirect, show modal, etc.)
     console.log('Final Score:', currentScore);
   };
 
@@ -31,6 +30,8 @@ export default function App() {
           questionNo={currentQuestionNo}
           totalQuestions={questions.length}
           handleOptionClick={handleOptionClick}
+          setCurrentScore={setCurrentScore}
+          setCurrentQuestionNo={setCurrentQuestionNo}
         />
       ) : (
         <Result currentScore={currentScore} restartGame={restartGame} handleResult={handleResult} />

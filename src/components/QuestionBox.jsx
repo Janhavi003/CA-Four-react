@@ -1,14 +1,16 @@
 // QuestionBox.jsx
 import React, { useState } from 'react';
 import "./questionbox.css";
-import {questions} from "./questions";
+import { questions } from "./questions";
 
-export default function QuestionBox({ questionNo, totalQuestions, handleOptionClick }) {
+export default function QuestionBox({ questionNo, totalQuestions, handleOptionClick, setCurrentScore, setCurrentQuestionNo }) {
+  // eslint-disable-next-line
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(questionNo - 1);
   const [highlightedOption, setHighlightedOption] = useState(null);
   const [isQuestionHighlighted, setIsQuestionHighlighted] = useState(false);
-  const [currentScore, setCurrentScore] = useState(0);
+  // eslint-disable-next-line
+  const [currentScore, setCurrentScoreLocal] = useState(0);
 
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
@@ -37,8 +39,6 @@ export default function QuestionBox({ questionNo, totalQuestions, handleOptionCl
       setIsQuestionHighlighted(false);
 
       if (newQuestionNo > totalQuestions) {
-        // Pass the current score to handleResult function if needed
-        // handleResult(currentScore);
         console.log('Game Over! Total Score:', currentScore);
       }
     }
@@ -46,7 +46,7 @@ export default function QuestionBox({ questionNo, totalQuestions, handleOptionCl
 
   const handleOptionSelection = (isCorrect) => {
     if (isCorrect) {
-      setCurrentScore(prevScore => prevScore + 1);
+      setCurrentScoreLocal(prevScore => prevScore + 1);
     }
   };
 
